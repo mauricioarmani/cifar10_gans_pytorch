@@ -22,13 +22,7 @@ def load_CIFAR10():
 		X_train[:len(X_batch)] = X_batch
 		Y_train[:len(Y_batch)] = Y_batch
 
-	valid_path = 'dataset/data_batch_%d' %4
-	X_valid, Y_valid = load_batch(valid_path)
-
-	test_path = 'dataset/data_batch_%d' %5
-	X_test, Y_test = load_batch(test_path)
-
-	return X_train, X_valid, X_test, Y_train, Y_valid, Y_test
+	return X_train, Y_train,
 
 
 class Data(Dataset):
