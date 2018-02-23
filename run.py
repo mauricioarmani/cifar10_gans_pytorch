@@ -2,26 +2,16 @@ import torch
 import torch.nn as nn 
 from torch.autograd import Variable
 from torch.optim import Adam
-<<<<<<< HEAD
 from torchvision.utils import save_image
-=======
-from torchvision.utils import make_grid, save_image
->>>>>>> 192f635742ff3ba60a0bbc85a1da0a4bd2f16cd7
 
 
 def run(data, G, D):
 	
-<<<<<<< HEAD
 	optimizer_d = Adam(D.parameters(), lr=2e-4, betas=(0.5, 0.999))
 	optimizer_g = Adam(G.parameters(), lr=2e-4, betas=(0.5, 0.999))
 	sig = nn.Sigmoid()
-	loss = nn.BCEWithLogitsLoss()
-	
-=======
-	optimizer_d = Adam(D.parameters(), lr=1e-4)
-	optimizer_g = Adam(G.parameters(), lr=1e-4)
+	loss = nn.BCEWithLogitsLoss()	
 
->>>>>>> 192f635742ff3ba60a0bbc85a1da0a4bd2f16cd7
 	for i, X in enumerate(data):
 		k = 1
 		x_ = X[0]
@@ -32,10 +22,6 @@ def run(data, G, D):
 		w_ = torch.zeros(m)
 		w = Variable(w_.float()).cuda()
 
-<<<<<<< HEAD
-=======
-		loss = nn.BCEWithLogitsLoss()
->>>>>>> 192f635742ff3ba60a0bbc85a1da0a4bd2f16cd7
 		for j in range(k):			
 			z1 = torch.Tensor(m, 100).uniform_(0,1)
 			z_d = Variable(z1.float()).cuda()
@@ -51,10 +37,8 @@ def run(data, G, D):
 
 		z2 = torch.Tensor(m, 100).uniform_(0,1)
 		z_g = Variable(z2.float(), volatile=True).cuda()
-<<<<<<< HEAD
 		
 		fake = G(z_g).data
-
 
 		loss_g = loss(D(Variable(fake)), y)
 		
@@ -69,20 +53,3 @@ def run(data, G, D):
 			filename = '/home/mauricio/cifar10_gan/results/results-{}.jpeg'.format(i)
 			fake_img = fake.div(2).add(0.5).clamp(0, 1).permute(0,3,1,2)
 			save_image(fake_img, filename, nrow=fake.shape[0]/8, normalize=True)
-=======
-		fake = G(z_g).data
-
-		if i % 100 == 0:
-			filename = '/home/mauricio/cifar10_gan/results/results-{}.jpeg'.format(i)
-			save_image(fake, filename, nrow=8, normalize=True)
-
-		loss_g = loss(D(Variable(fake)), y)
-		
-		loss_g.backward(retain_graph=True)
-		optimizer_g.step()
-		G.zero_grad()
-
-		if i % 50 == 0:
-			sig = nn.Sigmoid()
-			print 'loss_d: {} - loss_g: {} - D(x): {}'.format(loss_d.data[0], loss_g.data[0], sig(D(x)).data[0])
->>>>>>> 192f635742ff3ba60a0bbc85a1da0a4bd2f16cd7
