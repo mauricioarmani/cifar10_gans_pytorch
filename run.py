@@ -50,6 +50,6 @@ def run(data, G, D):
 			print 'loss_d: {} - loss_g: {} - D(x): {}'.format(loss_d.data[0], loss_g.data[0], sig(D(x)).data[0])
 		
 		if i % 100 == 0:
-			filename = '/home/mauricio/cifar10_gan/results/results-{}.jpeg'.format(i)
+			filename = 'results/results-{}.jpeg'.format(i)
 			fake_img = fake.div(2).add(0.5).clamp(0, 1).permute(0,3,1,2)
 			save_image(fake_img, filename, nrow=fake.shape[0]/8, normalize=True)
