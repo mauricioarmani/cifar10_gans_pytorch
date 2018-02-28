@@ -14,7 +14,6 @@ class Discriminator(nn.Module):
 		self.fc1 = nn.Linear(4*4*256, 1)
 
 	def forward(self, x):
-		x = x.permute(0, 3, 1, 2)
 		x = self.conv1(x)
 		x = F.leaky_relu(x)
 
@@ -57,5 +56,5 @@ class Generator(nn.Module):
 		x = F.leaky_relu(x)
 		
 		x = self.deconv3(x)
-		x = F.tanh(x).permute(0, 2, 3, 1)
+		x = F.tanh(x)
 		return x

@@ -8,12 +8,12 @@ def load_batch(path):
 		batch = pickle.Unpickler(batch).load()
 		X = np.array(batch['data'])
 		Y = np.array(batch['labels'])
-		X = X.reshape(10000, 3, 32, 32).transpose(0,2,3,1).astype('float')
+		X = X.reshape(10000, 3, 32, 32).astype('float')
 		return  X, Y
 
 
 def load_CIFAR10():
-	X_train = np.empty(shape=(30000, 32, 32, 3))
+	X_train = np.empty(shape=(30000, 3, 32, 32))
 	Y_train = np.empty(shape=(30000,))
 
 	for i in range(1, 4):

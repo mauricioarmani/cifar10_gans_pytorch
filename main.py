@@ -1,20 +1,23 @@
 from loader import load_CIFAR10, load_data
 from models import Discriminator, Generator
 from run import run
+import torch
 
 
 X_train, Y_train = load_CIFAR10()
 
 X_train = X_train/127.5 - 1
 
-batch_size = 128
-x_train_data = load_data(X_train, Y_train, batch_size)
+BATCH_SIZE = 128
+x_train_data = load_data(X_train, Y_train, BATCH_SIZE)
 
-z_dim = 100
-model_g = Generator(z_dim).cuda()
-model_d = Discriminator().cuda()
+Z_DIM = 100
+G = Generator(Z_DIM).cuda()
+D = Discriminator().cuda()
 
-epochs = 25
-for i in range(epochs):
-	print 'epoch: %d/%d' % (i+1, epochs)
-	run(x_train_data, model_g, model_d)
+z_val_ = torch.Tensor(BATCH_SIZE, 100).normal_(0,1)
+
+epochs = 100
+for epoch in range(epochs):
+	print 'epoch: %d/%d' % (epoch+1, epochs)
+	run(x_train_data, G, D, epoch, z_val_)
