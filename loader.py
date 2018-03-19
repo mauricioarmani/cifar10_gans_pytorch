@@ -22,17 +22,16 @@ def load_CIFAR10():
 		X_train[:len(X_batch)] = X_batch
 		Y_train[:len(Y_batch)] = Y_batch
 
-	return X_train, Y_train,
+	return X_train, Y_train
 
 
 class Data(Dataset):
-    def __init__(self, X, Y):
+    def __init__(self, X):
 	   super(Data, self).__init__()
 	   self.X = X
-	   self.Y = Y
 
     def __getitem__(self, index):
-        return self.X[index], self.Y[index]
+        return self.X[index]
 
     def __len__(self):
         return len(self.X)
@@ -41,7 +40,7 @@ class Data(Dataset):
         return ConcatDataset([self, other])
 
 
-def load_data(x, y, batch_size):
-	dataset = Data(x, y)
+def load_data(x, batch_size):
+	dataset = Data(x)
 	data = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 	return data

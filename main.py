@@ -4,12 +4,12 @@ from run import run
 import torch
 
 
-X_train, Y_train = load_CIFAR10()
+X_train, _ = load_CIFAR10()
 
 X_train = X_train/127.5 - 1
 
 BATCH_SIZE = 128
-x_train_data = load_data(X_train, Y_train, BATCH_SIZE)
+x_train_data = load_data(X_train, BATCH_SIZE)
 
 Z_DIM = 100
 G = Generator(Z_DIM).cuda()

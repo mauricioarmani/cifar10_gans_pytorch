@@ -15,8 +15,7 @@ def run(data, G, D, epoch, z_val_):
 
 	for i, X in enumerate(data):
 		k = 1
-		x_= X[0]
-		x = Variable(x_.float()).cuda()
+		x = Variable(X.float()).cuda()
 		m = len(x)
 		y_= torch.Tensor(m).uniform_(1 - smooth_label, 1)
 		y = Variable(y_.float()).cuda()
